@@ -11,8 +11,8 @@ RUN			rm -f /etc/nginx/nginx.conf
 
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./ssl/adashyan.42.fr.crt /etc/nginx/ssl/adashyan.42.fr.crt
-COPY ./ssl/adashyan.42.fr.key /etc/nginx/ssl/adashyan.42.fr.key
+# COPY ./ssl/adashyan.42.fr.crt /etc/nginx/ssl/adashyan.42.fr.crt
+# COPY ./ssl/adashyan.42.fr.key /etc/nginx/ssl/adashyan.42.fr.key
 
 # COPY nginx.conf /etc/nginx/nginx.conf
 # COPY nginx.crt /etc/nginx/certs/nginx.crt

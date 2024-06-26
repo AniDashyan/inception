@@ -2,6 +2,7 @@ version: '3'
 
 services:
   nginx:
+    image: nginx
     build:
       context: ./nginx
       dockerfile: ./Dockerfile
@@ -14,7 +15,7 @@ services:
         #   - inception
     volumes:
       - ./nginx/conf/:/etc/nginx/http.d/
-      - ./nginx/ssl:/etc/nginx/ssl/
+      - /etc/nginx/ssl:/etc/nginx/ssl/
       - /var/www/public/html:/var/www/public/html
         #- wp-volume:/var/www/
         # env_file:
