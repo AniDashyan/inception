@@ -8,16 +8,69 @@ services:
       dockerfile: ./Dockerfile
     container_name: nginx
       # depends_on:
-      # - wordpress
+      #- wordpress
     ports:
       - "443:443"
-        # networks:
-        #   - inception
+    networks:
+      - inception
     volumes:
-      - ./nginx/conf/:/etc/nginx/http.d/
+      - ./conf/:/etc/nginx/conf/
       - /etc/nginx/ssl:/etc/nginx/ssl/
-      - /var/www/public/html:/var/www/public/html
-        #- wp-volume:/var/www/
-        # env_file:
-        #- .env
+        # - wp-volume:/var/www/
+    env_file:
+      - .env
     restart: always
+
+  mariadb:
+    build:
+      context: ./mariadb
+      dockerfile: ./Dockerfile
+      args:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    container_name: mariadb
+    networks:
+      - inception
+    volumes:
+      - db-data:/var/lib/mysql
+    env_file:
+      - .env
+    restart: always
+
+      #  wordpress:
+      #    build:
+      #      context: .
+      #      dockerfile: requirements/wordpress/Dockerfile
+      #      args:
+      #        DB_NAME: ${DB_NAME}
+      #        DB_USER: ${DB_USER}
+      #        DB_PASS: ${DB_PASS}
+      #    container_name: wordpress
+      #    depends_on:
+      #      - mariadb
+      #    networks:
+      #      - inception
+      #    volumes:
+      #      - wp-volume:/var/www/
+      #    env_file:
+      #      - .env
+      #    restart: always
+
+volumes:
+  #  wp-volume:
+  #    driver_opts:
+  #      o: bind
+  #      type: none
+  #      device: /home/${USER}/data/wordpress
+
+  db-data:
+    driver_opts:
+      o: bind
+      type: none
+      device: /home/${USER}/data/mariadb
+
+networks:
+    inception:
+        driver: bridge 

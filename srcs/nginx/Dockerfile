@@ -1,6 +1,7 @@
 # Dockerfile must begin with FROM parent-image:version
 FROM alpine:3.19 
 
+
 # apk - package manager in alpine
 # add - install
 # --no-cache - invalidate caches during the next build
@@ -11,12 +12,6 @@ RUN			rm -f /etc/nginx/nginx.conf
 
 
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
-# COPY ./ssl/adashyan.42.fr.crt /etc/nginx/ssl/adashyan.42.fr.crt
-# COPY ./ssl/adashyan.42.fr.key /etc/nginx/ssl/adashyan.42.fr.key
-
-# COPY nginx.conf /etc/nginx/nginx.conf
-# COPY nginx.crt /etc/nginx/certs/nginx.crt
-# COPY nginx.key /etc/nginx/certs/nginx.key
 
 # specifying port does not publish it
 EXPOSE 443
